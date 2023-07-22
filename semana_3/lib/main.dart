@@ -93,6 +93,10 @@ class InitPage extends StatefulWidget {
 
 class _InitPageState extends State<InitPage> {
   double value = 50.0;
+  double redValue = 0.0;
+  double greenValue = 0.0;
+  double blueValue = 0.0;
+  bool checkValue = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,16 +109,77 @@ class _InitPageState extends State<InitPage> {
         body: Column(
           children: [
             Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+              textAlign: checkValue ? TextAlign.justify : TextAlign.left,
+              style: TextStyle(
+                fontSize: 14.0,
+                color: Color.fromRGBO(
+                  redValue.toInt(),
+                  greenValue.toInt(),
+                  blueValue.toInt(),
+                  1,
+                ),
+                decoration:
+                    checkValue ? TextDecoration.underline : TextDecoration.none,
+              ),
+            ),
             Slider(
-              value: value,
+              value: redValue,
               min: 0,
-              max: 100,
+              max: 255,
+              inactiveColor: Colors.black,
+              activeColor: Colors.red,
+              thumbColor: Colors.red,
               onChanged: (double v) {
-                value = v;
+                redValue = v;
                 setState(() {});
-                print(value);
+                print(redValue);
               },
+            ),
+            Slider(
+              value: greenValue,
+              min: 0,
+              max: 255,
+              inactiveColor: Colors.black,
+              activeColor: Colors.green,
+              thumbColor: Colors.green,
+              onChanged: (double v) {
+                greenValue = v;
+                setState(() {});
+                print(greenValue);
+              },
+            ),
+            Slider(
+              value: blueValue,
+              min: 0,
+              max: 255,
+              inactiveColor: Colors.black,
+              activeColor: Colors.blue,
+              thumbColor: Colors.blue,
+              onChanged: (double v) {
+                blueValue = v;
+                setState(() {});
+                print(blueValue);
+              },
+            ),
+            Checkbox(
+              value: checkValue,
+              onChanged: (bool? value) {
+                checkValue = !checkValue;
+                setState(() {});
+              },
+            ),
+            CheckboxListTile(
+              value: checkValue,
+              title: Text("Titulo"),
+              subtitle: Text("Subtitulo"),
+              onChanged: (bool? value) {
+                checkValue = !checkValue;
+                setState(() {});
+              },
+              checkboxShape: BeveledRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
             )
           ],
         ));
